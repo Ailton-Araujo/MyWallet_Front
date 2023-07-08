@@ -17,16 +17,16 @@ export default function TransactionAdd() {
     setTryAdd(true);
     const data = {
       description: descriptionRef.current.value,
-      amount: Number(amountRef.current.value.replace(",", ".")),
+      amount: Number(amountRef.current.value.replace(/[,.]/, "")),
       type: tipo,
     };
+    console.log(data);
     function successAdd() {
       setTryAdd(false);
       navigate("/home");
     }
     function failureAdd() {
       setTryAdd(false);
-      navigate("/home");
     }
     console.log(data);
     postTransactionAdd(data, auth, successAdd, failureAdd);
@@ -74,7 +74,8 @@ export default function TransactionAdd() {
 }
 
 const TransactionsContainer = styled.main`
-  height: calc(100vh - 50px);
+  padding: 25px 0px;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;

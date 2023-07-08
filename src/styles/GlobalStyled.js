@@ -12,10 +12,12 @@ const GlobalStyle = createGlobalStyle`
   }
   body {
     min-height: 100vh;
+    padding:0px 25px;
     background-color: #8c11be;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   }
   h1 {
+
     font-weight: 700;
     font-size: 26px;
     color: white;

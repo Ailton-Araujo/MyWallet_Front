@@ -22,7 +22,8 @@ export default function TransactionEdit() {
 }
 
 const TransactionsContainer = styled.main`
-  height: calc(100vh - 50px);
+  padding: 25px 0px;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
