@@ -5,9 +5,17 @@ export default function TransactionAdd() {
     <TransactionsContainer>
       <h1>Nova TRANSAÇÃO</h1>
       <form>
-        <input placeholder="Valor" type="text" />
-        <input placeholder="Descrição" type="text" />
-        <button>Salvar TRANSAÇÃO</button>
+        <input
+          data-test="registry-amount-input"
+          placeholder="Valor"
+          type="text"
+        />
+        <input
+          data-test="registry-amount-input"
+          placeholder="Descrição"
+          type="text"
+        />
+        <button data-test="registry-save">Salvar TRANSAÇÃO</button>
       </form>
     </TransactionsContainer>
   );

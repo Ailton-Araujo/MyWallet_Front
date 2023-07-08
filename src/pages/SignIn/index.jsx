@@ -38,6 +38,7 @@ export default function SignIn() {
       <Logo />
       <form onSubmit={signInSend}>
         <input
+          data-test="email"
           disabled={trySignIn}
           // type="email"
           id="email"
@@ -46,6 +47,7 @@ export default function SignIn() {
           required
         />
         <input
+          data-test="password"
           disabled={trySignIn}
           type="password"
           id="password"
@@ -53,7 +55,7 @@ export default function SignIn() {
           ref={passwordRef}
           required
         />
-        <button disabled={trySignIn} type="submit">
+        <button data-test="sign-in-submit" disabled={trySignIn} type="submit">
           {trySignIn ? (
             <ThreeDots
               height="20"

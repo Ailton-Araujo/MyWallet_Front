@@ -12,8 +12,9 @@ export default function Home() {
   return (
     <HomeContainer>
       <Header>
-        <h1>Olá, Fulano</h1>
+        <h1 data-test="user-name">Olá, Fulano</h1>
         <BiExit
+          data-test="logout"
           onClick={() => {
             deleteSignOut(auth, signOut);
           }}
@@ -41,12 +42,15 @@ export default function Home() {
 
         <article>
           <strong>Saldo</strong>
-          <Value color={"positivo"}>2880,00</Value>
+          <Value data-test="total-amount" color={"positivo"}>
+            2880,00
+          </Value>
         </article>
       </TransactionsContainer>
 
       <ButtonsContainer>
         <button
+          data-test="new-income"
           onClick={() => {
             navigate("/nova-transacao/entrada");
           }}
@@ -57,6 +61,7 @@ export default function Home() {
           </p>
         </button>
         <button
+          data-test="new-expense"
           onClick={() => {
             navigate("/nova-transacao/saida");
           }}

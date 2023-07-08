@@ -48,6 +48,7 @@ export default function SignUp() {
       <Logo />
       <form onSubmit={signUpSend}>
         <input
+          data-test="name"
           disabled={trySignUp}
           type="text"
           id="name"
@@ -56,8 +57,8 @@ export default function SignUp() {
           required
         />
         <input
+          data-test="email"
           disabled={trySignUp}
-          data-test="email-input"
           // type="email"
           id="email"
           placeholder="E-mail"
@@ -65,8 +66,8 @@ export default function SignUp() {
           required
         />
         <input
+          data-test="password"
           disabled={trySignUp}
-          data-test="password-input"
           type="password"
           id="password"
           placeholder="Senha"
@@ -76,8 +77,8 @@ export default function SignUp() {
           required
         />
         <input
+          data-test="conf-password"
           disabled={trySignUp}
-          data-test="password-input"
           type="password"
           id="confirmPassword"
           placeholder="Confirme a senha"
@@ -88,7 +89,7 @@ export default function SignUp() {
           required
         />
         <p>{confirmPassWord}</p>
-        <button disabled={trySignUp} type="submit">
+        <button data-test="sign-up-submit" disabled={trySignUp} type="submit">
           {trySignUp ? (
             <ThreeDots
               height="15"
