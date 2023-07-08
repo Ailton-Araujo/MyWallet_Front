@@ -24,7 +24,7 @@ function postSignIn(obj, success, failure) {
 function postSignUp(obj, success, failure) {
   axios
     .post("/sign-up", obj)
-    .then((res) => {
+    .then(() => {
       success();
     })
     .catch((error) => {
@@ -48,17 +48,48 @@ function putUserEdit(obj, auth) {
 
 //TransactionsRequests
 
-function getTransactions(auth) {
-  axios.get("/transactions", tokenProvider(auth)).then().catch();
+function getTransactions(auth, success, failure) {
+  axios
+    .get("/transactions", tokenProvider(auth))
+    .then((res) => {
+      success(res.data);
+    })
+    .catch((error) => {
+      alert(error.response.data);
+      failure();
+    });
 }
-function postTransactionAdd(obj, type, auth) {
-  axios.post(`/transaction/${type}`, obj, tokenProvider(auth)).then().catch();
+function postTransactionAdd(obj, auth, success, failure) {
+  axios
+    .post(`/addTransaction/`, obj, tokenProvider(auth))
+    .then(() => {
+      success();
+    })
+    .catch((error) => {
+      alert(error.response.data);
+      failure();
+    });
 }
-function deleteTransaction(id, auth) {
-  axios.delete(`/transaction/${id}`, tokenProvider(auth)).then().catch();
+function deleteTransaction(id, auth, success) {
+  axios
+    .delete(`/transaction/${id}`, tokenProvider(auth))
+    .then(() => {
+      success();
+    })
+    .catch((error) => {
+      alert(error.response.data);
+    });
 }
-function putTransactionEdit(id, obj, auth) {
-  axios.put(`/transaction/${id}`, obj, tokenProvider(auth)).then().catch();
+function putTransactionEdit(id, obj, auth, success, failure) {
+  axios
+    .put(`/transaction/${id}`, obj, tokenProvider(auth))
+    .then(() => {
+      success();
+    })
+    .catch((error) => {
+      alert(error.response.data);
+      failure();
+    });
 }
 
 export {
