@@ -20,7 +20,6 @@ export default function TransactionAdd() {
       amount: Number(amountRef.current.value.replace(/[,.]/, "")),
       type: tipo,
     };
-    console.log(data);
     function successAdd() {
       setTryAdd(false);
       navigate("/home");
@@ -28,7 +27,6 @@ export default function TransactionAdd() {
     function failureAdd() {
       setTryAdd(false);
     }
-    console.log(data);
     postTransactionAdd(data, auth, successAdd, failureAdd);
   }
 

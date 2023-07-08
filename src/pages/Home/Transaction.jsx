@@ -1,19 +1,46 @@
 import styled from "styled-components";
 import dayjs from "dayjs";
+import useAuth from "../../hooks/useAuth";
+import { deleteTransaction } from "../../services/api";
 
-export default function Transaction({ date, description, amount, type }) {
+export default function Transaction({
+  id,
+  transactions,
+  setTransactions,
+  date,
+  description,
+  amount,
+  type,
+}) {
+  const { auth } = useAuth();
+
+  function tryDelete() {
+    const teste = confirm("Você deseja deletar essa entrada");
+    if (!teste) return;
+    function success() {
+      setTransactions([
+        ...transactions.filter((transaction) => transaction._id !== id),
+      ]);
+    }
+    deleteTransaction(id, auth, success);
+  }
   return (
     <ListItemContainer>
       <div>
         <span>{dayjs(date).format("DD/MM")}</span>
-        <strong>{description}</strong>
+        <strong data-test="registry-name">{description}</strong>
       </div>
-      <Value color={type}>
-        {(amount / 100).toLocaleString("pt-BR", {
-          style: "currency",
-          currency: "BRL",
-        })}
-      </Value>
+      <div>
+        <Value data-test="registry-amount" color={type}>
+          {(amount / 100).toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL",
+          })}
+        </Value>
+        <p data-test="registry-delete" onClick={tryDelete}>
+          X
+        </p>
+      </div>
     </ListItemContainer>
   );
 }
@@ -33,5 +60,18 @@ const ListItemContainer = styled.li`
   div span {
     color: #c6c6c6;
     margin-right: 10px;
+  }
+  div {
+    display: flex;
+    gap: 5px;
+    p {
+      color: #c6c6c6;
+      text-align: center;
+      font-family: Raleway;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
   }
 `;

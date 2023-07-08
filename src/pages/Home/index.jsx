@@ -12,7 +12,7 @@ export default function Home() {
   const { auth, signOut } = useAuth();
   const navigate = useNavigate();
   const [Loading, setLoading] = useState(true);
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState({ name: "Usuário" });
   const [transactions, setTransactions] = useState([]);
   let totalTransaction = 0;
   useEffect(() => {
@@ -20,7 +20,6 @@ export default function Home() {
       if (data.length === 0) {
         setLoading(false);
       }
-      console.log(data);
       setUser(data.user);
       setTransactions(data.transactions);
     }
@@ -59,6 +58,9 @@ export default function Home() {
               return (
                 <Transaction
                   key={transaction._id}
+                  id={transaction._id}
+                  transactions={transactions}
+                  setTransactions={setTransactions}
                   date={transaction.date}
                   description={transaction.description}
                   amount={transaction.amount}
@@ -71,7 +73,10 @@ export default function Home() {
 
         <article>
           <strong>Saldo</strong>
-          <Value data-test="total-amount" color={"entrada"}>
+          <Value
+            data-test="total-amount"
+            color={totalTransaction >= 0 ? "entrada" : "saida"}
+          >
             {(totalTransaction / 100).toLocaleString("pt-BR", {
               style: "currency",
               currency: "BRL",

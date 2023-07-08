@@ -73,7 +73,8 @@ function postTransactionAdd(obj, auth, success, failure) {
 function deleteTransaction(id, auth, success) {
   axios
     .delete(`/transaction/${id}`, tokenProvider(auth))
-    .then(() => {
+    .then((res) => {
+      console.log(res.status);
       success();
     })
     .catch((error) => {
