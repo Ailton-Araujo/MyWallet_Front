@@ -15,7 +15,7 @@ export default function TransactionAddEdit() {
   let prevAmount = "";
   if (location.state) {
     prevDescription = location.state.description;
-    prevAmount = location.state.amount.toFixed(2).replace(".", ",");
+    prevAmount = location.state.amount.toFixed(2);
   }
   const [description, setDescription] = useState(prevDescription);
   const [amount, setAmount] = useState(prevAmount);
