@@ -77,9 +77,8 @@ export default function Home() {
             data-test="total-amount"
             color={totalTransaction >= 0 ? "entrada" : "saida"}
           >
-            {(totalTransaction / 100).toLocaleString("pt-BR", {
-              style: "currency",
-              currency: "BRL",
+            {totalTransaction.toLocaleString("pt-br", {
+              minimumFractionDigits: 2,
             })}
           </Value>
         </article>

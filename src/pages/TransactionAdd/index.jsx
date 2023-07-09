@@ -17,7 +17,7 @@ export default function TransactionAdd() {
     setTryAdd(true);
     const data = {
       description: descriptionRef.current.value,
-      amount: Number(amountRef.current.value.replace(/[,.]/, "")),
+      amount: Number(amountRef.current.value.replace(",", ".")),
       type: tipo,
     };
     function successAdd() {
@@ -40,7 +40,7 @@ export default function TransactionAdd() {
           id="value"
           placeholder="Valor"
           ref={amountRef}
-          required
+          // required
         />
         <input
           data-test="registry-name-input"
@@ -48,7 +48,7 @@ export default function TransactionAdd() {
           id="description"
           placeholder="Descrição"
           ref={descriptionRef}
-          required
+          // required
         />
         <button data-test="registry-save" disabled={tryAdd} type="submit">
           {tryAdd ? (

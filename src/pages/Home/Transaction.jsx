@@ -32,9 +32,9 @@ export default function Transaction({
       </div>
       <div>
         <Value data-test="registry-amount" color={type}>
-          {(amount / 100).toLocaleString("pt-BR", {
-            style: "currency",
-            currency: "BRL",
+          {amount.toLocaleString("pt-br", {
+            useGrouping: true,
+            minimumFractionDigits: 2,
           })}
         </Value>
         <p data-test="registry-delete" onClick={tryDelete}>
