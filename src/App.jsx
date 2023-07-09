@@ -14,11 +14,11 @@ import {
 function App() {
   const navigate = useNavigate();
   const { auth } = useAuth();
-  useEffect(() => {
-    if (auth) {
-      navigate("/home");
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (auth) {
+  //     navigate("/home");
+  //   }
+  // }, []);
   return (
     <Routes>
       <Route path="/" element={<SignIn />} />
