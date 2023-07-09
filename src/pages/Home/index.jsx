@@ -75,9 +75,10 @@ export default function Home() {
             data-test="total-amount"
             color={totalTransaction >= 0 ? "entrada" : "saida"}
           >
-            {totalTransaction.toLocaleString("pt-br", {
+            {/* {totalTransaction.toLocaleString("pt-br", {
               minimumFractionDigits: 2,
-            })}
+            })} */}
+            {totalTransaction.toFixed(2).replace(".", ",")}
           </Value>
         </article>
       </TransactionsContainer>
