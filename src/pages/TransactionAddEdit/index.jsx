@@ -1,45 +1,60 @@
 import styled from "styled-components";
-import { useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { ThreeDots } from "react-loader-spinner";
 import useAuth from "../../hooks/useAuth";
-import { postTransactionAdd } from "../../services/api";
+import { postTransactionAdd, putTransactionEdit } from "../../services/api";
 
-export default function TransactionAdd() {
+export default function TransactionAddEdit() {
   const navigate = useNavigate();
-  const { tipo } = useParams();
+  const location = useLocation();
+  const { tipo, id } = useParams();
   const { auth } = useAuth();
   const [tryAdd, setTryAdd] = useState(false);
-  const descriptionRef = useRef();
-  const amountRef = useRef();
+  let prevDescription = "";
+  let prevAmount = "";
+  if (location.state) {
+    prevDescription = location.state.description;
+    prevAmount = location.state.amount.toFixed(2).replace(".", ",");
+  }
+  const [description, setDescription] = useState(prevDescription);
+  const [amount, setAmount] = useState(prevAmount);
+
   function transactionSend(e) {
     e.preventDefault();
     setTryAdd(true);
     const data = {
-      description: descriptionRef.current.value,
-      amount: Number(amountRef.current.value.replace(",", ".")),
+      description,
+      amount: Number(amount.replace(",", ".")),
       type: tipo,
     };
-    function successAdd() {
+    function success() {
       setTryAdd(false);
       navigate("/home");
     }
-    function failureAdd() {
+    function failure() {
       setTryAdd(false);
     }
-    postTransactionAdd(data, auth.token, successAdd, failureAdd);
+    if (!id) {
+      postTransactionAdd(data, auth.token, success, failure);
+    } else {
+      putTransactionEdit(id, data, auth.token, success, failure);
+    }
   }
 
   return (
     <TransactionsContainer>
-      <h1>Nova {`${tipo}`}</h1>
+      <h1>
+        {!id ? "Nova " : "Editar "} {`${tipo}`}
+      </h1>
       <form onSubmit={transactionSend}>
         <input
           data-test="registry-amount-input"
           disabled={tryAdd}
-          id="value"
+          id="amount"
           placeholder="Valor"
-          ref={amountRef}
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
           // required
         />
         <input
@@ -47,7 +62,8 @@ export default function TransactionAdd() {
           disabled={tryAdd}
           id="description"
           placeholder="Descrição"
-          ref={descriptionRef}
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
           // required
         />
         <button data-test="registry-save" disabled={tryAdd} type="submit">
@@ -62,8 +78,10 @@ export default function TransactionAdd() {
               wrapperClassName=""
               visible={true}
             />
+          ) : !id ? (
+            `Nova ${tipo}`
           ) : (
-            `Salvar ${tipo}`
+            `Atualizar ${tipo}`
           )}
         </button>
       </form>

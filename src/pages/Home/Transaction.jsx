@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 import useAuth from "../../hooks/useAuth";
 import { deleteTransaction } from "../../services/api";
@@ -13,6 +14,7 @@ export default function Transaction({
   type,
 }) {
   const { auth } = useAuth();
+  const navigate = useNavigate();
 
   function tryDelete() {
     const teste = confirm("Você deseja deletar essa entrada");
@@ -24,11 +26,19 @@ export default function Transaction({
     }
     deleteTransaction(id, auth.token, success);
   }
+
+  function toEdit() {
+    navigate(`/editar-registro/${type}/${id}`, {
+      state: { description, amount },
+    });
+  }
   return (
     <ListItemContainer>
       <div>
         <span>{dayjs(date).format("DD/MM")}</span>
-        <strong data-test="registry-name">{description}</strong>
+        <strong data-test="registry-name" onClick={toEdit}>
+          {description}
+        </strong>
       </div>
       <div>
         <Value data-test="registry-amount" color={type}>

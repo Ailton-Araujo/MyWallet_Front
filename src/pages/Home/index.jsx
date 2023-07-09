@@ -68,8 +68,7 @@ export default function Home() {
             })}
           </ul>
         )}
-
-        <article>
+        <div>
           <strong>Saldo</strong>
           <Value
             data-test="total-amount"
@@ -80,7 +79,7 @@ export default function Home() {
             })} */}
             {totalTransaction.toFixed(2).replace(".", ",")}
           </Value>
-        </article>
+        </div>
       </TransactionsContainer>
 
       <ButtonsContainer>
@@ -112,9 +111,9 @@ export default function Home() {
   );
 }
 
-const HomeContainer = styled.div`
+const HomeContainer = styled.main`
+  max-height: calc(100vh - 50px);
   padding: 25px 0px;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
 `;
@@ -132,23 +131,23 @@ const Header = styled.header`
   }
 `;
 const TransactionsContainer = styled.article`
-  flex-grow: 1;
+  max-height: calc(100vh - 220px);
   background-color: #fff;
   color: #000;
   border-radius: 5px;
   padding: 16px;
   display: flex;
+  flex-shrink: 3;
   flex-direction: column;
   justify-content: space-between;
-
+  position: relative;
   ul {
-    max-height: 450px;
     overflow-y: scroll;
   }
   svg {
     align-self: center;
   }
-  article {
+  div {
     display: flex;
     justify-content: space-between;
     strong {
@@ -157,12 +156,10 @@ const TransactionsContainer = styled.article`
     }
   }
 `;
-const ButtonsContainer = styled.section`
+const ButtonsContainer = styled.nav`
   margin-top: 15px;
-  margin-bottom: 0;
   display: flex;
   gap: 15px;
-
   button {
     width: 50%;
     height: 115px;
