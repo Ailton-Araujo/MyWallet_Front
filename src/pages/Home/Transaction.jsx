@@ -22,7 +22,7 @@ export default function Transaction({
         ...transactions.filter((transaction) => transaction._id !== id),
       ]);
     }
-    deleteTransaction(id, auth, success);
+    deleteTransaction(id, auth.token, success);
   }
   return (
     <ListItemContainer>

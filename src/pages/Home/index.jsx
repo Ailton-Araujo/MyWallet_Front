@@ -12,7 +12,6 @@ export default function Home() {
   const { auth, signOut } = useAuth();
   const navigate = useNavigate();
   const [Loading, setLoading] = useState(true);
-  const [user, setUser] = useState({ name: "Usuário" });
   const [transactions, setTransactions] = useState([]);
   let totalTransaction = 0;
   useEffect(() => {
@@ -20,19 +19,18 @@ export default function Home() {
       if (data.length === 0) {
         setLoading(false);
       }
-      setUser(data.user);
-      setTransactions(data.transactions);
+      setTransactions(data);
     }
-    getTransactions(auth, success);
+    getTransactions(auth.token, success);
   }, []);
   return (
     <HomeContainer>
       <Header>
-        <h1 data-test="user-name">{`Olá, ${user.name}`}</h1>
+        <h1 data-test="user-name">{`Olá, ${auth.name}`}</h1>
         <BiExit
           data-test="logout"
           onClick={() => {
-            deleteSignOut(auth, signOut);
+            deleteSignOut(auth.token, signOut);
           }}
         />
       </Header>
@@ -141,7 +139,11 @@ const TransactionsContainer = styled.article`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  overflow-y: hidden;
+
+  ul {
+    max-height: 450px;
+    overflow-y: scroll;
+  }
   svg {
     align-self: center;
   }

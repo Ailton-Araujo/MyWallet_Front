@@ -27,7 +27,7 @@ export default function TransactionAdd() {
     function failureAdd() {
       setTryAdd(false);
     }
-    postTransactionAdd(data, auth, successAdd, failureAdd);
+    postTransactionAdd(data, auth.token, successAdd, failureAdd);
   }
 
   return (
