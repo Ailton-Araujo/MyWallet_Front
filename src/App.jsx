@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import useAuth from "./hooks/useAuth";
-import PrivateOutlet from "./components/PrivateOutlet";
+import { SignOutOutlet, SignInOutlet } from "./components/Outlets";
 import { SignIn, SignUp, Home, TransactionAddEdit, UserEdit } from "./pages";
 
 function App() {
@@ -14,9 +14,11 @@ function App() {
   // }, []);
   return (
     <Routes>
-      <Route path="/" element={<SignIn />} />
-      <Route path="/cadastro" element={<SignUp />} />
-      <Route element={<PrivateOutlet />}>
+      <Route element={<SignInOutlet />}>
+        <Route path="/" element={<SignIn />} />
+        <Route path="/cadastro" element={<SignUp />} />
+      </Route>
+      <Route element={<SignOutOutlet />}>
         <Route path="/home" element={<Home />} />
         <Route path="/nova-transacao/:tipo" element={<TransactionAddEdit />} />
         <Route
