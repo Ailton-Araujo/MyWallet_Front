@@ -16,8 +16,8 @@ function App() {
     <Routes>
       <Route element={<SignInOutlet />}>
         <Route path="/" element={<SignIn />} />
-        <Route path="/cadastro" element={<SignUp />} />
       </Route>
+      <Route path="/cadastro" element={<SignUp />} />
       <Route element={<SignOutOutlet />}>
         <Route path="/home" element={<Home />} />
         <Route path="/nova-transacao/:tipo" element={<TransactionAddEdit />} />

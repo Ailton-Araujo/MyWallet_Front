@@ -159,7 +159,7 @@ const TransactionsContainer = styled.article`
 const ButtonsContainer = styled.nav`
   margin-top: 15px;
   display: flex;
-  gap: 15px;
+  gap: 25px;
   button {
     width: 50%;
     height: 115px;
