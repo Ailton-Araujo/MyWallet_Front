@@ -4,6 +4,7 @@ import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { ThreeDots } from "react-loader-spinner";
 import useAuth from "../../hooks/useAuth";
 import { postTransactionAdd, putTransactionEdit } from "../../services/api";
+import backPageArrow from "../../assets/backPage.Icon.svg";
 
 export default function TransactionAddEdit() {
   const navigate = useNavigate();
@@ -44,9 +45,14 @@ export default function TransactionAddEdit() {
 
   return (
     <TransactionsContainer>
-      <h1>
-        {!id ? "Nova " : "Editar "} {`${tipo}`}
-      </h1>
+      <header>
+        <h1>
+          {!id ? "Nova " : "Editar "} {`${tipo}`}
+        </h1>
+        <button type="button" onClick={() => navigate(-1)}>
+          <img src={backPageArrow} alt="backPage" />
+        </button>
+      </header>
       <form onSubmit={transactionSend}>
         <input
           data-test="registry-amount-input"
@@ -97,8 +103,23 @@ const TransactionsContainer = styled.main`
   align-items: center;
   justify-content: flex-start;
 
-  h1 {
-    align-self: flex-start;
-    margin-bottom: 40px;
+  header {
+    width: calc(100% - 50px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    button {
+      width: 60px;
+      height: 60px;
+      flex-grow: 0;
+      padding: 0px;
+      border: none;
+      background: none;
+      img {
+        width: 45px;
+        height: 45px;
+      }
+    }
   }
 `;

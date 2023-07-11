@@ -5,19 +5,14 @@ import { SignOutOutlet, SignInOutlet } from "./components/Outlets";
 import { SignIn, SignUp, Home, TransactionAddEdit, UserEdit } from "./pages";
 
 function App() {
-  // const navigate = useNavigate();
-  // const { auth } = useAuth();
-  // useEffect(() => {
-  //   if (auth) {
-  //     navigate("/home");
-  //   }
-  // }, []);
   return (
     <Routes>
       <Route element={<SignInOutlet />}>
         <Route path="/" element={<SignIn />} />
       </Route>
+
       <Route path="/cadastro" element={<SignUp />} />
+
       <Route element={<SignOutOutlet />}>
         <Route path="/home" element={<Home />} />
         <Route path="/nova-transacao/:tipo" element={<TransactionAddEdit />} />
@@ -25,7 +20,7 @@ function App() {
           path="/editar-registro/:tipo/:id"
           element={<TransactionAddEdit />}
         />
-        <Route path="/editar-usuario/:tipo/:id" element={<UserEdit />} />
+        <Route path="/editar-usuario/:id" element={<UserEdit />} />
       </Route>
     </Routes>
   );
