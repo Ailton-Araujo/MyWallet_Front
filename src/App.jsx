@@ -1,8 +1,6 @@
-import { useEffect } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
-import useAuth from "./hooks/useAuth";
+import { Route, Routes } from "react-router-dom";
 import { SignOutOutlet, SignInOutlet } from "./components/Outlets";
-import { SignIn, SignUp, Home, TransactionAddEdit, UserEdit } from "./pages";
+import { SignIn, SignUp, Home, TransactionAddEdit } from "./pages";
 
 function App() {
   return (
@@ -20,7 +18,6 @@ function App() {
           path="/editar-registro/:tipo/:id"
           element={<TransactionAddEdit />}
         />
-        <Route path="/editar-usuario/:id" element={<UserEdit />} />
       </Route>
     </Routes>
   );

@@ -16,7 +16,7 @@ export default function TransactionAddEdit() {
   let prevAmount = "";
   if (location.state) {
     prevDescription = location.state.description;
-    prevAmount = location.state.amount.toFixed(2);
+    prevAmount = (location.state.amount / 100).toFixed(2);
   }
   const [description, setDescription] = useState(prevDescription);
   const [amount, setAmount] = useState(prevAmount);
@@ -24,7 +24,7 @@ export default function TransactionAddEdit() {
   function transactionSend(e) {
     e.preventDefault();
     setTryAdd(true);
-    const data = {
+    const body = {
       description,
       amount: Number(amount.replace(",", ".")),
       type: tipo,
@@ -37,9 +37,11 @@ export default function TransactionAddEdit() {
       setTryAdd(false);
     }
     if (!id) {
-      postTransactionAdd(data, auth.token, success, failure);
+      const args = { body, auth: auth.token };
+      postTransactionAdd(args, success, failure);
     } else {
-      putTransactionEdit(id, data, auth.token, success, failure);
+      const args = { id, body, auth: auth.token };
+      putTransactionEdit(args, success, failure);
     }
   }
 

@@ -16,7 +16,7 @@ export default function SignIn() {
   function signInSend(e) {
     e.preventDefault();
     setTrySignIn(true);
-    const data = {
+    const body = {
       email: emailRef.current.value,
       password: passwordRef.current.value,
     };
@@ -29,8 +29,8 @@ export default function SignIn() {
     function loginFailure() {
       setTrySignIn(false);
     }
-
-    postSignIn(data, loginSuccess, loginFailure);
+    const args = { body };
+    postSignIn(args, loginSuccess, loginFailure);
   }
 
   return (

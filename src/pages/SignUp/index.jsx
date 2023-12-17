@@ -27,7 +27,7 @@ export default function SignUp() {
     e.preventDefault();
     setTrySignUp(true);
 
-    const data = {
+    const body = {
       name: nameRef.current.value,
       email: emailRef.current.value,
       password,
@@ -40,7 +40,8 @@ export default function SignUp() {
     function signUpFailure() {
       setTrySignUp(false);
     }
-    postSignUp(data, signUpSuccess, signUpFailure);
+    const args = { body };
+    postSignUp(args, signUpSuccess, signUpFailure);
   }
 
   return (

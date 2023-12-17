@@ -21,7 +21,11 @@ export default function Home() {
       }
       setTransactions(data);
     }
-    getTransactions(auth.token, success);
+    function failure() {
+      signOut();
+    }
+    const args = { auth: auth.token };
+    getTransactions(args, success, failure);
   }, []);
   return (
     <HomeContainer>
@@ -55,8 +59,8 @@ export default function Home() {
               }
               return (
                 <Transaction
-                  key={transaction._id}
-                  id={transaction._id}
+                  key={transaction.id}
+                  id={transaction.id}
                   transactions={transactions}
                   setTransactions={setTransactions}
                   date={transaction.date}
@@ -74,10 +78,7 @@ export default function Home() {
             data-test="total-amount"
             color={totalTransaction >= 0 ? "entrada" : "saida"}
           >
-            {/* {totalTransaction.toLocaleString("pt-br", {
-              minimumFractionDigits: 2,
-            })} */}
-            {totalTransaction.toFixed(2).replace(".", ",")}
+            {(totalTransaction / 100).toFixed(2).replace(".", ",")}
           </Value>
         </div>
       </TransactionsContainer>

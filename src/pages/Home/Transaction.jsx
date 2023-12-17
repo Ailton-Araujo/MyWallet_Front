@@ -42,11 +42,7 @@ export default function Transaction({
       </div>
       <div>
         <Value data-test="registry-amount" color={type}>
-          {/* {amount.toLocaleString("pt-br", {
-            useGrouping: true,
-            minimumFractionDigits: 2,
-          })} */}
-          {amount.toFixed(2).replace(".", ",")}
+          {(amount / 100).toFixed(2).replace(".", ",")}
         </Value>
         <p data-test="registry-delete" onClick={tryDelete}>
           X

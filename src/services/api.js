@@ -8,11 +8,11 @@ function tokenProvider(auth) {
     },
   };
 }
-//UserRequests
 
-function postSignIn(obj, success, failure) {
+function postSignIn(args, success, failure) {
+  const { body } = args;
   axios
-    .post("/sign-in", obj)
+    .post("/sign-in", body)
     .then((res) => {
       success(res.data);
     })
@@ -21,9 +21,10 @@ function postSignIn(obj, success, failure) {
       failure();
     });
 }
-function postSignUp(obj, success, failure) {
+function postSignUp(args, success, failure) {
+  const { body } = args;
   axios
-    .post("/sign-up", obj)
+    .post("/sign-up", body)
     .then(() => {
       success();
     })
@@ -32,23 +33,20 @@ function postSignUp(obj, success, failure) {
       failure();
     });
 }
-function deleteSignOut(auth, success) {
+function deleteSignOut(args, success) {
+  const { auth } = args;
   axios
     .delete("/sign-out", tokenProvider(auth))
     .then(() => {
       success();
     })
     .catch((error) => {
-      console.log(error.response.data);
+      alert(error.response.data);
     });
 }
-function putUserEdit(obj, auth) {
-  axios.put("/edit-user", obj, tokenProvider(auth)).then().catch();
-}
 
-//TransactionsRequests
-
-function getTransactions(auth, success, failure) {
+function getTransactions(args, success, failure) {
+  const { auth } = args;
   axios
     .get("/transactions", tokenProvider(auth))
     .then((res) => {
@@ -59,9 +57,10 @@ function getTransactions(auth, success, failure) {
       failure();
     });
 }
-function postTransactionAdd(obj, auth, success, failure) {
+function postTransactionAdd(args, success, failure) {
+  const { auth, body } = args;
   axios
-    .post(`/addTransaction/`, obj, tokenProvider(auth))
+    .post(`/addTransaction/`, body, tokenProvider(auth))
     .then(() => {
       success();
     })
@@ -70,20 +69,21 @@ function postTransactionAdd(obj, auth, success, failure) {
       failure();
     });
 }
-function deleteTransaction(id, auth, success) {
+function deleteTransaction(args, success) {
+  const { auth, id } = args;
   axios
     .delete(`/transaction/${id}`, tokenProvider(auth))
     .then((res) => {
-      console.log(res.status);
       success();
     })
     .catch((error) => {
       alert(error.response.data);
     });
 }
-function putTransactionEdit(id, obj, auth, success, failure) {
+function putTransactionEdit(args, success, failure) {
+  const { auth, id, body } = args;
   axios
-    .put(`/transaction/${id}`, obj, tokenProvider(auth))
+    .put(`/transaction/${id}`, body, tokenProvider(auth))
     .then(() => {
       success();
     })
@@ -97,7 +97,6 @@ export {
   postSignIn,
   postSignUp,
   deleteSignOut,
-  putUserEdit,
   getTransactions,
   postTransactionAdd,
   deleteTransaction,
