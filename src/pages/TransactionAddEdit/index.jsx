@@ -106,7 +106,7 @@ export default function TransactionAddEdit() {
 
 const TransactionsContainer = styled.main`
   padding: 25px 0px;
-  min-height: 100vh;
+  height: 100svh;
   display: flex;
   flex-direction: column;
   align-items: center;

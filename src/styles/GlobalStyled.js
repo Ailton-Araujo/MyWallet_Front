@@ -11,7 +11,7 @@ const GlobalStyle = createGlobalStyle`
     font-weight: 400;
   }
   body {
-    min-height: 100dvh;
+    min-height: 100svh;
     padding:0px 25px;
     background-color: #8c11be;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);

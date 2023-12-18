@@ -73,7 +73,7 @@ export default function Home() {
 }
 
 const HomeContainer = styled.main`
-  max-height: calc(100dvh - 50px);
+  max-height: calc(100svh - 50px);
   padding: 25px 0px;
   display: flex;
   flex-direction: column;

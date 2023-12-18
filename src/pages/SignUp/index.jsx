@@ -112,7 +112,7 @@ export default function SignUp() {
 }
 
 const SingUpContainer = styled.section`
-  height: 100vh;
+  height: 100svh;
   display: flex;
   flex-direction: column;
   justify-content: center;

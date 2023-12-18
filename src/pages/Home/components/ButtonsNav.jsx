@@ -41,8 +41,9 @@ const ButtonsContainer = styled.nav`
   button {
     width: 50%;
     height: 115px;
+    padding: 20px;
     font-size: 22px;
-    text-align: left;
+    text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
