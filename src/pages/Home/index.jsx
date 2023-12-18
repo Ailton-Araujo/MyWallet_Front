@@ -1,16 +1,13 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
-import { BiExit } from "react-icons/bi";
-import { AiOutlineMinusCircle, AiOutlinePlusCircle } from "react-icons/ai";
 import { FallingLines } from "react-loader-spinner";
 import useAuth from "../../hooks/useAuth";
-import { deleteSignOut, getTransactions } from "../../services/api";
-import Transaction from "./Transaction";
+import { getTransactions } from "../../services/api";
+import { Header, Transaction, ButtonsNav } from "./components";
 
 export default function Home() {
   const { auth, signOut } = useAuth();
-  const navigate = useNavigate();
+
   const [Loading, setLoading] = useState(true);
   const [transactions, setTransactions] = useState([]);
   let totalTransaction = 0;
@@ -24,21 +21,12 @@ export default function Home() {
     function failure() {
       signOut();
     }
-    const args = { auth: auth.token };
+    const args = { token: auth.token };
     getTransactions(args, success, failure);
   }, []);
   return (
     <HomeContainer>
-      <Header>
-        <h1 data-test="user-name">{`Olá, ${auth.name}`}</h1>
-        <BiExit
-          data-test="logout"
-          onClick={() => {
-            deleteSignOut(auth.token, signOut);
-          }}
-        />
-      </Header>
-
+      <Header name={auth.name} token={auth.token} signOut={signOut} />
       <TransactionsContainer>
         {transactions.length === 0 ? (
           Loading && (
@@ -61,12 +49,9 @@ export default function Home() {
                 <Transaction
                   key={transaction.id}
                   id={transaction.id}
-                  transactions={transactions}
+                  transactionsList={transactions}
                   setTransactions={setTransactions}
-                  date={transaction.date}
-                  description={transaction.description}
-                  amount={transaction.amount}
-                  type={transaction.type}
+                  transaction={transaction}
                 />
               );
             })}
@@ -82,57 +67,20 @@ export default function Home() {
           </Value>
         </div>
       </TransactionsContainer>
-
-      <ButtonsContainer>
-        <button
-          data-test="new-income"
-          onClick={() => {
-            navigate("/nova-transacao/entrada");
-          }}
-        >
-          <AiOutlinePlusCircle />
-          <p>
-            Nova <br /> entrada
-          </p>
-        </button>
-        <button
-          data-test="new-expense"
-          onClick={() => {
-            navigate("/nova-transacao/saida");
-          }}
-        >
-          <AiOutlineMinusCircle />
-          <p>
-            Nova <br />
-            saída
-          </p>
-        </button>
-      </ButtonsContainer>
+      <ButtonsNav />
     </HomeContainer>
   );
 }
 
 const HomeContainer = styled.main`
-  max-height: calc(100vh - 50px);
+  max-height: calc(100dvh - 50px);
   padding: 25px 0px;
   display: flex;
   flex-direction: column;
 `;
-const Header = styled.header`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 2px 5px 2px;
-  margin-bottom: 15px;
-  font-size: 26px;
-  color: white;
-  button {
-    border: none;
-    background: none;
-  }
-`;
+
 const TransactionsContainer = styled.article`
-  max-height: calc(100vh - 220px);
+  min-height: calc(100svh - 220px);
   background-color: #fff;
   color: #000;
   border-radius: 5px;
@@ -143,7 +91,8 @@ const TransactionsContainer = styled.article`
   justify-content: space-between;
   position: relative;
   ul {
-    overflow-y: scroll;
+    height: calc(100svh - 220px);
+    overflow-y: auto;
   }
   svg {
     align-self: center;
@@ -157,23 +106,7 @@ const TransactionsContainer = styled.article`
     }
   }
 `;
-const ButtonsContainer = styled.nav`
-  margin-top: 15px;
-  display: flex;
-  gap: 25px;
-  button {
-    width: 50%;
-    height: 115px;
-    font-size: 22px;
-    text-align: left;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    p {
-      font-size: 18px;
-    }
-  }
-`;
+
 const Value = styled.div`
   font-size: 16px;
   text-align: right;

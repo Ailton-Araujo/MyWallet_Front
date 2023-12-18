@@ -1,10 +1,10 @@
 import axios from "axios";
 axios.defaults.baseURL = `${import.meta.env.VITE_API_URL}`;
 
-function tokenProvider(auth) {
+function tokenProvider(token) {
   return {
     headers: {
-      Authorization: `Bearer ${auth}`,
+      Authorization: `Bearer ${token}`,
     },
   };
 }
@@ -34,21 +34,23 @@ function postSignUp(args, success, failure) {
     });
 }
 function deleteSignOut(args, success) {
-  const { auth } = args;
+  const { token } = args;
+  console.log(tokenProvider(token));
   axios
-    .delete("/sign-out", tokenProvider(auth))
+    .put("/sign-out", "", tokenProvider(token))
     .then(() => {
       success();
     })
     .catch((error) => {
-      alert(error.response.data);
+      console.log(error);
+      alert(error);
     });
 }
 
 function getTransactions(args, success, failure) {
-  const { auth } = args;
+  const { token } = args;
   axios
-    .get("/transactions", tokenProvider(auth))
+    .get("/transactions", tokenProvider(token))
     .then((res) => {
       success(res.data);
     })
@@ -58,9 +60,9 @@ function getTransactions(args, success, failure) {
     });
 }
 function postTransactionAdd(args, success, failure) {
-  const { auth, body } = args;
+  const { token, body } = args;
   axios
-    .post(`/addTransaction/`, body, tokenProvider(auth))
+    .post(`/addTransaction/`, body, tokenProvider(token))
     .then(() => {
       success();
     })
@@ -70,9 +72,9 @@ function postTransactionAdd(args, success, failure) {
     });
 }
 function deleteTransaction(args, success) {
-  const { auth, id } = args;
+  const { token, id } = args;
   axios
-    .delete(`/transaction/${id}`, tokenProvider(auth))
+    .delete(`/transaction/${id}`, tokenProvider(token))
     .then((res) => {
       success();
     })
@@ -81,9 +83,9 @@ function deleteTransaction(args, success) {
     });
 }
 function putTransactionEdit(args, success, failure) {
-  const { auth, id, body } = args;
+  const { token, id, body } = args;
   axios
-    .put(`/transaction/${id}`, body, tokenProvider(auth))
+    .put(`/transaction/${id}`, body, tokenProvider(token))
     .then(() => {
       success();
     })

@@ -60,7 +60,6 @@ export default function SignUp() {
         <input
           data-test="email"
           disabled={trySignUp}
-          // type="email"
           id="email"
           placeholder="E-mail"
           ref={emailRef}

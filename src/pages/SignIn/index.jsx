@@ -40,7 +40,6 @@ export default function SignIn() {
         <input
           data-test="email"
           disabled={trySignIn}
-          // type="email"
           id="email"
           placeholder="E-mail"
           ref={emailRef}
@@ -72,7 +71,6 @@ export default function SignIn() {
           )}
         </button>
       </form>
-
       <Link to={"/cadastro"}>Primeira vez? Cadastre-se!</Link>
     </SingInContainer>
   );

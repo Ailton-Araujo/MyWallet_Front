@@ -1,35 +1,37 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
-import useAuth from "../../hooks/useAuth";
-import { deleteTransaction } from "../../services/api";
+import useAuth from "../../../hooks/useAuth";
+import { deleteTransaction } from "../../../services/api";
 
 export default function Transaction({
   id,
-  transactions,
+  transactionsList,
   setTransactions,
-  date,
-  description,
-  amount,
-  type,
+  transaction,
 }) {
   const { auth } = useAuth();
   const navigate = useNavigate();
+  const { date, description, amount, type } = transaction;
 
   function tryDelete() {
-    const teste = confirm("Você deseja deletar essa entrada");
-    if (!teste) return;
+    const userConfirm = confirm("Você deseja deletar essa entrada");
+    if (!userConfirm) return;
     function success() {
       setTransactions([
-        ...transactions.filter((transaction) => transaction._id !== id),
+        ...transactionsList.filter((transaction) => transaction.id !== id),
       ]);
     }
-    deleteTransaction(id, auth.token, success);
+    const args = { id, token: auth.token };
+    deleteTransaction(args, success);
   }
 
   function toEdit() {
     navigate(`/editar-registro/${type}/${id}`, {
-      state: { description, amount },
+      state: {
+        description,
+        amount: (amount / 100).toFixed(2).replace(".", ","),
+      },
     });
   }
   return (
@@ -44,9 +46,9 @@ export default function Transaction({
         <Value data-test="registry-amount" color={type}>
           {(amount / 100).toFixed(2).replace(".", ",")}
         </Value>
-        <p data-test="registry-delete" onClick={tryDelete}>
+        <button data-test="registry-delete" onClick={tryDelete}>
           X
-        </p>
+        </button>
       </div>
     </ListItemContainer>
   );
@@ -68,17 +70,21 @@ const ListItemContainer = styled.li`
     color: #c6c6c6;
     margin-right: 10px;
   }
+  div strong {
+    cursor: pointer;
+  }
   div {
     display: flex;
     gap: 5px;
-    p {
+    button {
+      background: none;
+      border: none;
+      cursor: pointer;
       color: #c6c6c6;
-      text-align: center;
-      font-family: Raleway;
+      font-family: "Raleway", sans-serif;
       font-size: 16px;
-      font-style: normal;
       font-weight: 400;
-      line-height: normal;
+      padding: 0;
     }
   }
 `;

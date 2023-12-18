@@ -12,22 +12,19 @@ export default function TransactionAddEdit() {
   const { tipo, id } = useParams();
   const { auth } = useAuth();
   const [tryAdd, setTryAdd] = useState(false);
-  let prevDescription = "";
-  let prevAmount = "";
-  if (location.state) {
-    prevDescription = location.state.description;
-    prevAmount = (location.state.amount / 100).toFixed(2);
-  }
-  const [description, setDescription] = useState(prevDescription);
-  const [amount, setAmount] = useState(prevAmount);
+
+  const [transactionDetails, setTransactionDetails] = useState({
+    description: location.state ? location.state.description : "",
+    amount: location.state ? location.state.amount : "",
+    type: tipo,
+  });
 
   function transactionSend(e) {
     e.preventDefault();
     setTryAdd(true);
     const body = {
-      description,
-      amount: Number(amount.replace(",", ".")),
-      type: tipo,
+      ...transactionDetails,
+      amount: Number(transactionDetails.amount.replace(",", ".")),
     };
     function success() {
       setTryAdd(false);
@@ -37,10 +34,10 @@ export default function TransactionAddEdit() {
       setTryAdd(false);
     }
     if (!id) {
-      const args = { body, auth: auth.token };
+      const args = { body, token: auth.token };
       postTransactionAdd(args, success, failure);
     } else {
-      const args = { id, body, auth: auth.token };
+      const args = { id, body, token: auth.token };
       putTransactionEdit(args, success, failure);
     }
   }
@@ -58,21 +55,31 @@ export default function TransactionAddEdit() {
       <form onSubmit={transactionSend}>
         <input
           data-test="registry-amount-input"
+          type="text"
           disabled={tryAdd}
           id="amount"
           placeholder="Valor"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-          // required
+          value={transactionDetails.amount}
+          onChange={(e) =>
+            setTransactionDetails((prevState) => ({
+              ...prevState,
+              amount: e.target.value,
+            }))
+          }
         />
         <input
           data-test="registry-name-input"
+          type="text"
           disabled={tryAdd}
           id="description"
           placeholder="Descrição"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          // required
+          value={transactionDetails.description}
+          onChange={(e) =>
+            setTransactionDetails((prevState) => ({
+              ...prevState,
+              description: e.target.value,
+            }))
+          }
         />
         <button data-test="registry-save" disabled={tryAdd} type="submit">
           {tryAdd ? (

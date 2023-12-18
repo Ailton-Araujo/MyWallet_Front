@@ -17,7 +17,6 @@ const GlobalStyle = createGlobalStyle`
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   }
   h1 {
-
     font-weight: 700;
     font-size: 26px;
     color: white;
@@ -34,6 +33,7 @@ const GlobalStyle = createGlobalStyle`
   input {
     width: 100%;
     outline: none;
+    background-color: #ffffff;
     border: 1px solid #ccc;
     border-radius: 5px;
     padding: 15px;
@@ -45,6 +45,7 @@ const GlobalStyle = createGlobalStyle`
     }
     cursor: pointer;
     &:disabled {
+      opacity: 0.8;
       cursor: not-allowed;
     }
   }
