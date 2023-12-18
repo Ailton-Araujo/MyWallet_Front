@@ -1,8 +1,8 @@
-import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
-import dayjs from "dayjs";
-import useAuth from "../../../hooks/useAuth";
-import { deleteTransaction } from "../../../services/api";
+import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import dayjs from 'dayjs';
+import useAuth from '../../../hooks/useAuth.jsx';
+import { deleteTransaction } from '../../../services/api';
 
 export default function Transaction({
   id,
@@ -15,7 +15,7 @@ export default function Transaction({
   const { date, description, amount, type } = transaction;
 
   function tryDelete() {
-    const userConfirm = confirm("Você deseja deletar essa entrada");
+    const userConfirm = confirm('Você deseja deletar essa entrada');
     if (!userConfirm) return;
     function success() {
       setTransactions([
@@ -30,23 +30,23 @@ export default function Transaction({
     navigate(`/editar-registro/${type}/${id}`, {
       state: {
         description,
-        amount: (amount / 100).toFixed(2).replace(".", ","),
+        amount: (amount / 100).toFixed(2).replace('.', ','),
       },
     });
   }
   return (
     <ListItemContainer>
       <div>
-        <span>{dayjs(date).format("DD/MM")}</span>
-        <strong data-test="registry-name" onClick={toEdit}>
+        <span>{dayjs(date).format('DD/MM')}</span>
+        <strong data-test='registry-name' onClick={toEdit}>
           {description}
         </strong>
       </div>
       <div>
-        <Value data-test="registry-amount" color={type}>
-          {(amount / 100).toFixed(2).replace(".", ",")}
+        <Value data-test='registry-amount' color={type}>
+          {(amount / 100).toFixed(2).replace('.', ',')}
         </Value>
-        <button data-test="registry-delete" onClick={tryDelete}>
+        <button data-test='registry-delete' onClick={tryDelete}>
           X
         </button>
       </div>
@@ -57,7 +57,7 @@ export default function Transaction({
 const Value = styled.div`
   font-size: 16px;
   text-align: right;
-  color: ${(props) => (props.color === "entrada" ? "green" : "red")};
+  color: ${(props) => (props.color === 'entrada' ? 'green' : 'red')};
 `;
 const ListItemContainer = styled.li`
   display: flex;
@@ -81,7 +81,7 @@ const ListItemContainer = styled.li`
       border: none;
       cursor: pointer;
       color: #c6c6c6;
-      font-family: "Raleway", sans-serif;
+      font-family: 'Raleway', sans-serif;
       font-size: 16px;
       font-weight: 400;
       padding: 0;

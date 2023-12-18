@@ -1,19 +1,19 @@
-import { createContext, useState } from "react";
+import { createContext, useState } from 'react';
 
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const persistedAuth = JSON.parse(localStorage.getItem("auth"));
+  const persistedAuth = JSON.parse(localStorage.getItem('auth'));
   const [auth, setAuth] = useState(persistedAuth);
 
   function signIn(authData) {
     setAuth(authData);
-    localStorage.setItem("auth", JSON.stringify(authData));
+    localStorage.setItem('auth', JSON.stringify(authData));
   }
 
   function signOut() {
     setAuth(undefined);
-    localStorage.removeItem("auth");
+    localStorage.removeItem('auth');
   }
 
   return (

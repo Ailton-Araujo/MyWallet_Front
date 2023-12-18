@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import styled from "styled-components";
-import { FallingLines } from "react-loader-spinner";
-import useAuth from "../../hooks/useAuth";
-import { getTransactions } from "../../services/api";
-import { Header, Transaction, ButtonsNav } from "./components";
+import { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import { FallingLines } from 'react-loader-spinner';
+import useAuth from '../../hooks/useAuth.jsx';
+import { getTransactions } from '../../services/api.js';
+import { Header, Transaction, ButtonsNav } from './components/index.js';
 
 export default function Home() {
   const { auth, signOut } = useAuth();
@@ -31,16 +31,16 @@ export default function Home() {
         {transactions.length === 0 ? (
           Loading && (
             <FallingLines
-              color="#8c11be"
-              width="100"
+              color='#8c11be'
+              width='100'
               visible={true}
-              ariaLabel="falling-lines-loading"
+              ariaLabel='falling-lines-loading'
             />
           )
         ) : (
           <ul>
             {transactions.map((transaction) => {
-              if (transaction.type === "entrada") {
+              if (transaction.type === 'entrada') {
                 totalTransaction += transaction.amount;
               } else {
                 totalTransaction -= transaction.amount;
@@ -60,10 +60,10 @@ export default function Home() {
         <div>
           <strong>Saldo</strong>
           <Value
-            data-test="total-amount"
-            color={totalTransaction >= 0 ? "entrada" : "saida"}
+            data-test='total-amount'
+            color={totalTransaction >= 0 ? 'entrada' : 'saida'}
           >
-            {(totalTransaction / 100).toFixed(2).replace(".", ",")}
+            {(totalTransaction / 100).toFixed(2).replace('.', ',')}
           </Value>
         </div>
       </TransactionsContainer>
@@ -110,5 +110,5 @@ const TransactionsContainer = styled.article`
 const Value = styled.div`
   font-size: 16px;
   text-align: right;
-  color: ${(props) => (props.color === "entrada" ? "green" : "red")};
+  color: ${(props) => (props.color === 'entrada' ? 'green' : 'red')};
 `;

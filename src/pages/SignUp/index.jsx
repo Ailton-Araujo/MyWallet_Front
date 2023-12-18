@@ -1,29 +1,29 @@
-import { useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { ThreeDots } from "react-loader-spinner";
-import styled from "styled-components";
-import Logo from "../../components/Logo";
-import { postSignUp } from "../../services/api";
+import { useRef, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { ThreeDots } from 'react-loader-spinner';
+import styled from 'styled-components';
+import Logo from '../../components/Logo.jsx';
+import { postSignUp } from '../../services/api';
 
 export default function SignUp() {
   const navigate = useNavigate();
   const [trySignUp, setTrySignUp] = useState(false);
   const nameRef = useRef();
   const emailRef = useRef();
-  const [password, setPassword] = useState("");
-  const [confirmPassWord, setConfirmPassword] = useState("");
+  const [password, setPassword] = useState('');
+  const [confirmPassWord, setConfirmPassword] = useState('');
 
   function checkPassword(confirmPassword) {
-    if (confirmPassword !== "" && password !== confirmPassword) {
-      setConfirmPassword("Ambas as senhas devem ser iguais");
+    if (confirmPassword !== '' && password !== confirmPassword) {
+      setConfirmPassword('Ambas as senhas devem ser iguais');
     } else if (password === confirmPassword) {
-      setConfirmPassword("");
+      setConfirmPassword('');
     }
   }
 
   function signUpSend(e) {
     if (confirmPassWord.length !== 0)
-      return alert("Ambos as Senhas devem ser iguais");
+      return alert('Ambos as Senhas devem ser iguais');
     e.preventDefault();
     setTrySignUp(true);
 
@@ -34,7 +34,7 @@ export default function SignUp() {
     };
 
     function signUpSuccess() {
-      navigate("/");
+      navigate('/');
     }
 
     function signUpFailure() {
@@ -49,64 +49,64 @@ export default function SignUp() {
       <Logo />
       <form onSubmit={signUpSend}>
         <input
-          data-test="name"
+          data-test='name'
           disabled={trySignUp}
-          type="text"
-          id="name"
-          placeholder="Nome"
+          type='text'
+          id='name'
+          placeholder='Nome'
           ref={nameRef}
           required
         />
         <input
-          data-test="email"
+          data-test='email'
           disabled={trySignUp}
-          id="email"
-          placeholder="E-mail"
+          id='email'
+          placeholder='E-mail'
           ref={emailRef}
           required
         />
         <input
-          data-test="password"
+          data-test='password'
           disabled={trySignUp}
-          type="password"
-          id="password"
-          placeholder="Senha"
-          autoComplete="new-password"
+          type='password'
+          id='password'
+          placeholder='Senha'
+          autoComplete='new-password'
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
         />
         <input
-          data-test="conf-password"
+          data-test='conf-password'
           disabled={trySignUp}
-          type="password"
-          id="confirmPassword"
-          placeholder="Confirme a senha"
-          autoComplete="new-password"
+          type='password'
+          id='confirmPassword'
+          placeholder='Confirme a senha'
+          autoComplete='new-password'
           onChange={(e) => {
             checkPassword(e.target.value);
           }}
           required
         />
         <p>{confirmPassWord}</p>
-        <button data-test="sign-up-submit" disabled={trySignUp} type="submit">
+        <button data-test='sign-up-submit' disabled={trySignUp} type='submit'>
           {trySignUp ? (
             <ThreeDots
-              height="15"
-              width="60"
-              radius="11"
-              color=" #FFFFFF"
-              ariaLabel="three-dots-loading"
+              height='15'
+              width='60'
+              radius='11'
+              color=' #FFFFFF'
+              ariaLabel='three-dots-loading'
               wrapperStyle={{}}
-              wrapperClassName=""
+              wrapperClassName=''
               visible={true}
             />
           ) : (
-            "Cadastrar"
+            'Cadastrar'
           )}
         </button>
       </form>
-      <Link to={"/"}>Já tem uma conta? Entre agora!</Link>
+      <Link to={'/'}>Já tem uma conta? Entre agora!</Link>
     </SingUpContainer>
   );
 }

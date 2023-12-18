@@ -1,16 +1,16 @@
-import { useNavigate } from "react-router-dom";
-import { AiOutlineMinusCircle, AiOutlinePlusCircle } from "react-icons/ai";
+import { useNavigate } from 'react-router-dom';
+import { AiOutlineMinusCircle, AiOutlinePlusCircle } from 'react-icons/ai';
 
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export default function ButtonsNav() {
   const navigate = useNavigate();
   return (
     <ButtonsContainer>
       <button
-        data-test="new-income"
+        data-test='new-income'
         onClick={() => {
-          navigate("/nova-transacao/entrada");
+          navigate('/nova-transacao/entrada');
         }}
       >
         <AiOutlinePlusCircle />
@@ -19,9 +19,9 @@ export default function ButtonsNav() {
         </p>
       </button>
       <button
-        data-test="new-expense"
+        data-test='new-expense'
         onClick={() => {
-          navigate("/nova-transacao/saida");
+          navigate('/nova-transacao/saida');
         }}
       >
         <AiOutlineMinusCircle />

@@ -1,10 +1,10 @@
-import styled from "styled-components";
-import { useState } from "react";
-import { useNavigate, useParams, useLocation } from "react-router-dom";
-import { ThreeDots } from "react-loader-spinner";
-import useAuth from "../../hooks/useAuth";
-import { postTransactionAdd, putTransactionEdit } from "../../services/api";
-import backPageArrow from "../../assets/backPage.Icon.svg";
+import styled from 'styled-components';
+import { useState } from 'react';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
+import { ThreeDots } from 'react-loader-spinner';
+import useAuth from '../../hooks/useAuth.jsx';
+import { postTransactionAdd, putTransactionEdit } from '../../services/api';
+import backPageArrow from '../../assets/backPage.Icon.svg';
 
 export default function TransactionAddEdit() {
   const navigate = useNavigate();
@@ -14,8 +14,8 @@ export default function TransactionAddEdit() {
   const [tryAdd, setTryAdd] = useState(false);
 
   const [transactionDetails, setTransactionDetails] = useState({
-    description: location.state ? location.state.description : "",
-    amount: location.state ? location.state.amount : "",
+    description: location.state ? location.state.description : '',
+    amount: location.state ? location.state.amount : '',
     type: tipo,
   });
 
@@ -24,11 +24,11 @@ export default function TransactionAddEdit() {
     setTryAdd(true);
     const body = {
       ...transactionDetails,
-      amount: Number(transactionDetails.amount.replace(",", ".")),
+      amount: Number(transactionDetails.amount.replace(',', '.')),
     };
     function success() {
       setTryAdd(false);
-      navigate("/home");
+      navigate('/home');
     }
     function failure() {
       setTryAdd(false);
@@ -46,19 +46,19 @@ export default function TransactionAddEdit() {
     <TransactionsContainer>
       <header>
         <h1>
-          {!id ? "Nova " : "Editar "} {`${tipo}`}
+          {!id ? 'Nova ' : 'Editar '} {`${tipo}`}
         </h1>
-        <button type="button" onClick={() => navigate(-1)}>
-          <img src={backPageArrow} alt="backPage" />
+        <button type='button' onClick={() => navigate(-1)}>
+          <img src={backPageArrow} alt='backPage' />
         </button>
       </header>
       <form onSubmit={transactionSend}>
         <input
-          data-test="registry-amount-input"
-          type="text"
+          data-test='registry-amount-input'
+          type='text'
           disabled={tryAdd}
-          id="amount"
-          placeholder="Valor"
+          id='amount'
+          placeholder='Valor'
           value={transactionDetails.amount}
           onChange={(e) =>
             setTransactionDetails((prevState) => ({
@@ -68,11 +68,11 @@ export default function TransactionAddEdit() {
           }
         />
         <input
-          data-test="registry-name-input"
-          type="text"
+          data-test='registry-name-input'
+          type='text'
           disabled={tryAdd}
-          id="description"
-          placeholder="Descrição"
+          id='description'
+          placeholder='Descrição'
           value={transactionDetails.description}
           onChange={(e) =>
             setTransactionDetails((prevState) => ({
@@ -81,16 +81,16 @@ export default function TransactionAddEdit() {
             }))
           }
         />
-        <button data-test="registry-save" disabled={tryAdd} type="submit">
+        <button data-test='registry-save' disabled={tryAdd} type='submit'>
           {tryAdd ? (
             <ThreeDots
-              height="20"
-              width="60"
-              radius="11"
-              color=" #FFF"
-              ariaLabel="three-dots-loading"
+              height='20'
+              width='60'
+              radius='11'
+              color=' #FFF'
+              ariaLabel='three-dots-loading'
               wrapperStyle={{}}
-              wrapperClassName=""
+              wrapperClassName=''
               visible={true}
             />
           ) : !id ? (

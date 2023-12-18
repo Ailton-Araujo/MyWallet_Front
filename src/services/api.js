@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 axios.defaults.baseURL = `${import.meta.env.VITE_API_URL}`;
 
 function tokenProvider(token) {
@@ -12,7 +12,7 @@ function tokenProvider(token) {
 function postSignIn(args, success, failure) {
   const { body } = args;
   axios
-    .post("/sign-in", body)
+    .post('/sign-in', body)
     .then((res) => {
       success(res.data);
     })
@@ -24,7 +24,7 @@ function postSignIn(args, success, failure) {
 function postSignUp(args, success, failure) {
   const { body } = args;
   axios
-    .post("/sign-up", body)
+    .post('/sign-up', body)
     .then(() => {
       success();
     })
@@ -37,7 +37,7 @@ function deleteSignOut(args, success) {
   const { token } = args;
   console.log(tokenProvider(token));
   axios
-    .put("/sign-out", "", tokenProvider(token))
+    .put('/sign-out', '', tokenProvider(token))
     .then(() => {
       success();
     })
@@ -50,7 +50,7 @@ function deleteSignOut(args, success) {
 function getTransactions(args, success, failure) {
   const { token } = args;
   axios
-    .get("/transactions", tokenProvider(token))
+    .get('/transactions', tokenProvider(token))
     .then((res) => {
       success(res.data);
     })
